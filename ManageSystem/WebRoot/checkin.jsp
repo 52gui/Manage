@@ -2,6 +2,9 @@
 <%@page import="com.dreamer.dao.UserDao"%>
 <jsp:useBean id="userBean" scope="request" class="com.dreamer.bean.UserBean" />
 <jsp:useBean id="userDao" scope="request" class="com.dreamer.dao.UserDao" />
+<jsp:useBean id="logBean" scope="request" class="com.dreamer.bean.LogBean" />
+<jsp:useBean id="logDao" scope="request" class="com.dreamer.dao.LogDao" />
+<jsp:useBean id="Log" scope="request" class="com.dreamer.constant.Constant" />
 <jsp:useBean id="MD5" class="com.dreamer.encode.MD5" />
 <%
 /*该文件用于extjs页面登录校验跳转*/
@@ -49,15 +52,24 @@ try {
 	session.setAttribute("user_ip",ip);
 	session.setAttribute("superadmin",new Integer(userDao.getUserBean().getSuperAdmin()));
 	session.setAttribute("module_right",new Integer(userDao.getUserBean().getModuleRight()));
-	session.setAttribute("read_write",new Integer(userDao.getUserBean().getReadORwrite()));
+	session.setAttribute("authority",new Integer(userDao.getUserBean().getAuthority()));
 	String json="{";
 	json+="success:true,";
 	json+="username:'"+login_name+"',";
 	json+="user_id:'"+userDao.getUserBean().getId()+"',";
 	json+="data:'成功！'";
 	json+="}";
+	logBean.setUser(userDao.getUserBean().getId());
+	logBean.setIpAddress(ip);
+	logBean.setType(Log.TYPE_LOGIN);
+	logBean.setOperate(Log.OP_LOGIN);
+	logBean.setResult(Log.RESULT_SUCCESS);
+	logBean.setDescriptio("用户"+login_name+"登录系统");
+	logDao.add(logBean);
 	response.getWriter().write(json);
 } catch (Exception ex) {
  	System.out.println("用户登录发生错误:\n"+ex);
+ 	logBean.setResult(Log.RESULT_FAILURE);
+ 	
  	response.getWriter().write("{success:false,data:'系统错误！'}");
 }%>

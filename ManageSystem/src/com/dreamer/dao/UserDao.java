@@ -62,7 +62,7 @@ public class UserDao extends BaseDao{
 			userBean.setLastLoginIP(resultSet.getString("last_login_ip"));
 			userBean.setSuperAdmin(resultSet.getString("superadmin"));
 			userBean.setModuleRight(resultSet.getInt("module_right"));
-			userBean.setReadORwrite(resultSet.getInt("read_write"));
+			userBean.setAuthority(resultSet.getInt("authority"));
 			closeConnection();
 			return;
 		} catch (Exception e) {

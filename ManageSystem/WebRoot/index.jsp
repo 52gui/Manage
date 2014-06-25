@@ -9,6 +9,8 @@
 	<meta http-equiv="expires" content="0">
 	<link rel="stylesheet" type="text/css" href="./ext/resources/css/ext-all.css" />
 	<link rel="stylesheet" type="text/css" href="./theme/theme.css" />
+	<link rel="icon" href="http://dreamerdiy.vicp.cc/ManageSystem/favicon.ico" type="image/x-icon" /> 
+	<link rel="shortcut icon" href="http://dreamerdiy.vicp.cc/ManageSystem/favicon.ico" type="image/x-icon" />
   </head>
   
   <body>
@@ -54,6 +56,17 @@
 							}
 						});
 					}
+				});
+			}
+			//加载页面
+			function loadPage(extobj,URL,Params) {
+				extobj.removeAll();
+				extobj.load({
+					url: URL,
+					params: Params,
+					text: '页面加载中，请稍候......',
+					timeout:300000,
+					scripts: true
 				});
 			}
 			Ext.onReady(function(){
@@ -197,18 +210,11 @@
 				items:[Top_Panel, Content_Panel],
 				listeners: {
 					resize: function() {
-						doResize.defer(250);
+						///doResize.defer(250);
 					}
 				}
 			});
 			
-			function doResize(){	
-			}
-			
-			function timedCount(){
-				document_load_time=document_load_time+1;
-				theTimer=setTimeout("timedCount()", 1000);
-			}
 		</script>
 	</div>
   	<div id='background' style="z-index:8999;position:absolute;left:0;top:0;width:100%;height:100%;background-color:white">

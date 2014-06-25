@@ -9,7 +9,7 @@ public class UserBean {
 	private String lastLoginIP;
 	private String superAdmin;
 	private int moduleRight;
-	private int readORwrite;
+	private int authority;
 	public int getId() {
 		return id;
 	}
@@ -58,11 +58,11 @@ public class UserBean {
 	public void setModuleRight(int moduleRight) {
 		this.moduleRight = moduleRight;
 	}
-	public int getReadORwrite() {
-		return readORwrite;
+	public int getAuthority() {
+		return authority;
 	}
-	public void setReadORwrite(int readORwrite) {
-		this.readORwrite = readORwrite;
+	public void setAuthority(int authority) {
+		this.authority = authority;
 	}
 	
 }
