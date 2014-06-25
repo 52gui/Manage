@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 /**
- * 验证码生成工具类
+ * 验证码生成servlet
  * @author zhangzixu
  *
  */
