@@ -1,0 +1,14 @@
+<%@page pageEncoding="GBK"%>
+<%
+	Integer user_id = (Integer) session.getAttribute("user_id");
+	int u_id=0;
+	if(user_id!=null) {
+		u_id = user_id.intValue();
+ 	}
+ 	String name = (String) session.getAttribute("user_name");
+ 	String user_name = "";
+ 	if(name==null||name.equals(""))
+ 		user_name = "сн©м";
+ 	else
+ 		user_name = name;
+%>
