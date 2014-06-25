@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+/**
+ * 验证码生成工具类
+ * @author zhangzixu
+ *
+ */
 public class ColorImage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
