@@ -7,14 +7,11 @@
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 	<link rel="stylesheet" type="text/css" href="./ext/resources/css/ext-all.css" />
 	<link rel="stylesheet" type="text/css" href="./theme/theme.css" />
   </head>
   
-  <body style="background-color:#cedff5">
+  <body>
     <div id="loading-mask" style=""></div>
 	<div id="loading">
 		<div class="loading-indicator"><img src="./images/extanim32.gif" width="32" height="32" style="margin-right:8px;float:left;vertical-align:top;"/>Dreamer管理系统<br /><span id="loading-msg">正在加载风格和图片...</span></div>
@@ -95,11 +92,29 @@
 				Ext.get('background').on('resize',function(){bkResize();});
 				<%if (u_id>0) {//如果已经登录，则移除登录层%>
 					Login_Panel.hide();
-					
 					Top_Panel.show();
 					Content_Panel.show();
 					Ext.get('background').fadeOut({remove:false});
-				
+					Ext.getBody().on('click',function(){
+						var conn = new Ext.data.Connection();
+						conn.request({
+							url: "./include/checkUserInfo.jsp",
+							method: 'post',
+							scope: this,
+							callback:function(options,success,response){
+								if (success) {
+									var obj = Ext.decode(response.responseText);
+									if (obj.success) {
+											if(obj.type==2){
+												top.location.href='./index.jsp';
+											}
+									}									
+								}else{
+									top.location.href='./index.jsp';
+								}								
+							}
+						});
+					});
 				<%}%>
 				//移除遮挡动画
 				var hideMask = function () {
@@ -189,6 +204,7 @@
 			
 			function doResize(){	
 			}
+			
 			function timedCount(){
 				document_load_time=document_load_time+1;
 				theTimer=setTimeout("timedCount()", 1000);

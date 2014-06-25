@@ -1,7 +1,5 @@
 package com.dreamer.dao;
 
-import java.sql.ResultSet;
-
 import com.dreamer.bean.UserBean;
 /**
  * 该类为用户的操作类
@@ -9,7 +7,6 @@ import com.dreamer.bean.UserBean;
  *
  */
 public class UserDao extends BaseDao{
-	private ResultSet resultSet;
 	private UserBean userBean;
 
 	public UserDao(){
@@ -31,6 +28,10 @@ public class UserDao extends BaseDao{
 		this.userBean = userBean;
 	}
 	
+	/**
+	 * 用户登录校验方法
+	 * id为返回的标记，为0时数据库连接错误，为-1时用户不存在，为-2时用户名存在但是密码不正确，为-3时表示用户不可用（enabled字段被置为0了）
+	 */
 	public void verifyUser(){
 		String strPassword = "";
 		initMySQL();
@@ -41,19 +42,18 @@ public class UserDao extends BaseDao{
 			resultSet = preparedStatement.executeQuery();
 			if (!resultSet.next()) {
 				userBean.setId(-1);
-				closeResultSet();
+				closeConnection();
 				return;
 			}
 			strPassword = resultSet.getString("password");
-			System.out.println(strPassword);
 			if (!strPassword.equals(userBean.getPassword())){
 				userBean.setId(-2);
-				closeResultSet();
+				closeConnection();
 				return;
 			}
 			if (resultSet.getInt("enabled")==0) {
 				userBean.setId(-3);
-				closeResultSet();
+				closeConnection();
 				return;
 			}
 			userBean.setId(resultSet.getInt("id"));
@@ -63,27 +63,14 @@ public class UserDao extends BaseDao{
 			userBean.setSuperAdmin(resultSet.getString("superadmin"));
 			userBean.setModuleRight(resultSet.getInt("module_right"));
 			userBean.setReadORwrite(resultSet.getInt("read_write"));
-			closeResultSet();
+			closeConnection();
 			return;
 		} catch (Exception e) {
 			// TODO: handle exception
 			userBean.setId(0);
-			closeResultSet();
+			closeConnection();
 			System.out.println("获取结果集异常！"+e);
 		} 
-	}
-	
-	private void closeResultSet(){
-		try {
-			if(resultSet!=null){
-				resultSet.close();
-			}
-		} catch (final Exception e) {
-			// TODO: handle exception
-			System.out.println("关闭resultSet异常！"+e);
-		} finally{
-			close();
-		}
 	}
 	public UserBean getUserBean() {
 		return userBean;

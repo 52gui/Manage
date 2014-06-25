@@ -45,6 +45,7 @@ try {
 		return;
 	}
 	session.setAttribute("user_id",new Integer(userDao.getUserBean().getId()));
+	session.setAttribute("login_name",userDao.getUserBean().getName());
 	session.setAttribute("user_ip",ip);
 	session.setAttribute("superadmin",new Integer(userDao.getUserBean().getSuperAdmin()));
 	session.setAttribute("module_right",new Integer(userDao.getUserBean().getModuleRight()));

@@ -3,12 +3,15 @@ package com.dreamer.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
+/**
+ * 数据库操作的基类，封装数据库的基本操作
+ * @author Dreamer
+ *
+ */
 public class BaseDao {
 	protected String sql = "";
 	protected Context initContext,envContext;
@@ -16,21 +19,23 @@ public class BaseDao {
 	protected Connection connection;
 	protected PreparedStatement preparedStatement;
 	protected ResultSet resultSet;
-	
+	/**
+	 * 初始化数据库连接
+	 */
 	protected void initMySQL(){
 		try{
 			initContext = new InitialContext();
 			envContext = (Context)initContext.lookup("java:/comp/env");
 			dataSource = (DataSource)envContext.lookup("jdbc/ManageSystem");
 			connection = dataSource.getConnection();
-			//statement = connection.prepareStatement();
 		}catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("数据库连接池初始化异常！"+e);
 		}
 	}
-	
-	protected void close() {
+	/**
+	 * 关闭数据库连接
+	 */
+	protected void closeConnection() {
 		try {
 			if(resultSet!=null){
 				resultSet.close();
@@ -42,8 +47,7 @@ public class BaseDao {
 				connection.close();
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("关闭数据库资源异常！"+e);
+			System.out.println("关闭数据库连接资源异常！"+e);
 		}
 	}
 }
