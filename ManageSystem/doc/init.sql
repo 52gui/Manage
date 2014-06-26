@@ -18,7 +18,7 @@ INSERT INTO `ct_log_type` VALUES ('2', '系统', '0', '0', '1', '0', '2014-06-24
 INSERT INTO `ct_log_type` VALUES ('3', '登录', '0', '0', '1', '0', '2014-06-24 23:00:27', '0000-00-00 00:00:00');
 INSERT INTO `ct_log_type` VALUES ('4', '数据', '0', '0', '1', '0', '2014-06-24 23:02:34', '0000-00-00 00:00:00');
 
---日志操作类型表
+--日志操作类型代码表
 DROP TABLE IF EXISTS `ct_log_operate`;
 CREATE TABLE `ct_log_operate` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
@@ -42,7 +42,7 @@ INSERT INTO `ct_log_operate` VALUES ('6', '登录', '0', '0', '1', '0', '2014-06
 INSERT INTO `ct_log_operate` VALUES ('7', '注销', '0', '0', '1', '0', '2014-06-24 23:09:55', '0000-00-00 00:00:00');
 INSERT INTO `ct_log_operate` VALUES ('8', '导出', '0', '0', '1', '0', '2014-06-24 23:09:56', '0000-00-00 00:00:00');
 
---操作结果
+--日志操作结果代码表
 DROP TABLE IF EXISTS `ct_log_result`;
 CREATE TABLE `ct_log_result` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
