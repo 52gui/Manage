@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
+import com.dreamer.util.DbUtil;
 /**
  * 数据库操作的基类，封装数据库的基本操作
  * @author Dreamer
@@ -14,8 +12,6 @@ import javax.sql.DataSource;
  */
 public class BaseDao {
 	protected String sql = "";
-	protected Context initContext,envContext;
-	protected DataSource dataSource;
 	protected Connection connection;
 	protected PreparedStatement preparedStatement;
 	protected ResultSet resultSet;
@@ -24,10 +20,7 @@ public class BaseDao {
 	 */
 	protected void initMySQL(){
 		try{
-			initContext = new InitialContext();
-			envContext = (Context)initContext.lookup("java:/comp/env");
-			dataSource = (DataSource)envContext.lookup("jdbc/ManageSystem");
-			connection = dataSource.getConnection();
+			connection = DbUtil.getConnection();
 		}catch (Exception e) {
 			System.out.println("数据库连接池初始化异常！"+e);
 		}
